@@ -1,0 +1,4 @@
+/.claude
+/makefs
+*.o
+*.d

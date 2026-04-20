@@ -45,7 +45,7 @@ __RCSID("$NetBSD: efun.c,v 1.10 2015/07/26 02:20:30 kamil Exp $");
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <util.h>
+#include "util.h"
 
 static void (*efunc)(int, const char *, ...) = err;
 

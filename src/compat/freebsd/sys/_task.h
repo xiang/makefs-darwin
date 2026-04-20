@@ -1,0 +1,1 @@
+struct task { int dummy; };

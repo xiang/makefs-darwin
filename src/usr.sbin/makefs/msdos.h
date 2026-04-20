@@ -34,7 +34,9 @@
 #ifndef _MAKEFS_MSDOS_H
 #define _MAKEFS_MSDOS_H
 
+#ifndef NOCRED
 #define NOCRED NULL
+#endif
 
 #define MSDOSFS_DPRINTF(args) do {	\
 	if (debug & DEBUG_MSDOSFS)	\

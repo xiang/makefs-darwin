@@ -49,7 +49,7 @@
 #include <strings.h>
 #include <time.h>
 #include <unistd.h>
-#include <util.h>
+#include "util.h"
 #include <vis.h>
 
 #include "makefs.h"
@@ -574,7 +574,7 @@ read_mtree_keywords(FILE *fp, fsnode *node)
 					error = errno;
 					break;
 				}
-				if (strunvis(node->symlink, value) < 0) {
+				if (strnunvis(node->symlink, strlen(value) + 1, value) < 0) {
 					error = errno;
 					break;
 				}

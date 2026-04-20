@@ -86,7 +86,7 @@ __RCSID("$NetBSD: spec.c,v 1.94 2025/12/18 14:05:41 christos Exp $");
 #include <string.h>
 #include <unistd.h>
 #include <vis.h>
-#include <util.h>
+#include "util.h"
 
 #include "extern.h"
 #include "pack_dev.h"
@@ -175,7 +175,7 @@ noparent:		mtree_err("no parent node");
 			tname = ntname;
 			tnamelen = plen;
 		}
-		if (strunvis(tname, p) == -1)
+		if (strnunvis(tname, tnamelen, p) == -1)
 			mtree_err("strunvis failed on `%s'", p);
 		p = tname;
 
@@ -437,9 +437,9 @@ vispath(const char *path)
 	static char pathbuf[4*MAXPATHLEN + 1];
 
 	if (flavor == F_NETBSD6)
-		strsvis(pathbuf, path, VIS_CSTYLE, extra);
+		strsnvis(pathbuf, sizeof(pathbuf), path, VIS_CSTYLE, extra);
 	else
-		strsvis(pathbuf, path, VIS_OCTAL, extra_glob);
+		strsnvis(pathbuf, sizeof(pathbuf), path, VIS_OCTAL, extra_glob);
 	return pathbuf;
 }
 
@@ -514,7 +514,7 @@ replacenode(NODE *cur, NODE *new)
 	if (cur->slink != NULL) {
 		if ((cur->slink = strdup(new->slink)) == NULL)
 			mtree_err("memory allocation error");
-		if (strunvis(cur->slink, new->slink) == -1)
+		if (strnunvis(cur->slink, strlen(new->slink) + 1, new->slink) == -1)
 			mtree_err("strunvis failed on `%s'", new->slink);
 		free(new->slink);
 	}
@@ -632,7 +632,7 @@ set(char *t, NODE *ip)
 		case F_SLINK:
 			if ((ip->slink = strdup(val)) == NULL)
 				mtree_err("memory allocation error");
-			if (strunvis(ip->slink, val) == -1)
+			if (strnunvis(ip->slink, strlen(val) + 1, val) == -1)
 				mtree_err("strunvis failed on `%s'", val);
 			break;
 		case F_TAGS:

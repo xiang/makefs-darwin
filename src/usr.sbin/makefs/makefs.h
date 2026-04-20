@@ -82,7 +82,6 @@ enum fi_flags {
 	FI_SIZED =	1<<0,		/* inode sized */
 	FI_ALLOCATED =	1<<1,		/* fsinode->ino allocated */
 	FI_WRITTEN =	1<<2,		/* inode written */
-	FI_ROOT =	1<<3,		/* root of a ZFS dataset */
 };
 
 typedef struct {
@@ -202,9 +201,6 @@ void		fs ## _makefs(const char *, const char *, fsnode *, fsinfo_t *)
 DECLARE_FUN(cd9660);
 DECLARE_FUN(ffs);
 DECLARE_FUN(msdos);
-#ifdef HAVE_ZFS
-DECLARE_FUN(zfs);
-#endif
 
 extern	u_int		debug;
 extern	int		dupsok;
